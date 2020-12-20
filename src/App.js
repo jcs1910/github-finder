@@ -6,7 +6,6 @@ import Navbar from './components/layout/Navbar';
 import Alert from './components/layout/Alert';
 import Users from './components/users/Users';
 import User from './components/users/User';
-
 import Search from './components/users/Search';
 import About from './components/pages/About';
 
@@ -16,6 +15,7 @@ class App extends Component {
   state = {
     users: [],
     user: {},
+    repos: [],
     loading: false,
     alert: null,
   };
@@ -55,6 +55,19 @@ class App extends Component {
     this.setState({ user: response.data, loading: false });
   };
 
+  // Get users repos
+  getUserRepos = async (username) => {
+    this.setState({ loading: true });
+
+    const response = await axios.get(
+      `https://api.github.com/users/${username}/repos?per_page=10&sort=created:asc
+      &client_id=${process.env.REACT_APP_GITHUB_CLIENT_ID}
+      &client_secret=${process.env.REACT_APP_GITHUB_CLIENT_SECRET}`
+    );
+
+    this.setState({ repos: response.data, loading: false });
+  };
+
   // Clear users from state
   clearUsers = () => {
     this.setState({ users: [], loading: false });
@@ -69,7 +82,7 @@ class App extends Component {
 
   render() {
     const { searchUsers, clearUsers } = this;
-    const { users, loading, alert, user } = this.state;
+    const { users, loading, alert, user, repos } = this.state;
 
     return (
       <Router>
@@ -101,7 +114,9 @@ class App extends Component {
                   <User
                     {...props}
                     getUser={this.getUser}
+                    getUserRepos={this.getUserRepos}
                     user={user}
+                    repos={repos}
                     loading={loading}
                   />
                 )}
