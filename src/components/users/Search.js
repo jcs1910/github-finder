@@ -57,36 +57,3 @@ class Search extends Component {
 }
 
 export default Search;
-
-// import React from 'react';
-
-// function Search() {
-//   const state = {
-//     text: '',
-//   };
-
-//   onChange = (e) => {
-
-//   };
-
-//   return (
-//     <div>
-//       <form className='form'>
-//         <input
-//           type='text'
-//           name='text'
-//           placeholder='Search Users...'
-//           value={state.text}
-//           onChange={onChange()}
-//         ></input>
-//         <input
-//           type='submit'
-//           value='Search'
-//           className='btn btn-dark btn-block'
-//         ></input>
-//       </form>
-//     </div>
-//   );
-// }
-
-// export default Search;
